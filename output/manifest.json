@@ -1,0 +1,7 @@
+{
+  "name": "Website Color Changer",
+  "version": "1.0",
+  "description": "Extends the Developer Tools, adding a sidebar that displays colors used on a website and allows to manage them.",
+  "devtools_page": "devtools.html",
+  "manifest_version": 2
+}
