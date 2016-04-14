@@ -1,1 +1,5 @@
 node_modules
+output
+!output/devtools.js
+!output/devtools.html
+!output/manifest.json
