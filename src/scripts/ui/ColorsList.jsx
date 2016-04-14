@@ -1,17 +1,11 @@
 import React from 'react'
 
 class ColorListElement extends React.Component {
-
-	componentDidMount() {
-		console.log(this.props.colors)
-	}
-
 	render() {
 		return (
 			<li>
-				<div style={{backgroundColor: this.props.color}}>
-				|
-				</div>
+				<i style={{backgroundColor: this.props.color}}></i>
+				<span>{this.props.color}</span>
 			</li>//
 		);
 	}
@@ -23,23 +17,16 @@ ColorListElement.propTypes = {
 
 
 export class ColorsList extends React.Component {
-
-	componentDidMount() {
-		console.log(this.props.colors)
-	}
-
 	render() {
 		var colors = this.props.colors;
 		return (
-			<div>
-				<ul>
+				<ul className="colors-list">
 					{
 						Object.keys(colors.background).map(function(color) {
 							return <ColorListElement key={color} color={color} elements={colors.background[color]} />
 						})
 					}
 				</ul>
-			</div>//
 		);
 	}
 }
