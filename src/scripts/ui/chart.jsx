@@ -51,14 +51,12 @@ export class Chart {
 		var config = {
 	        type: 'doughnut',
 	        data: this.chartJSData,
-	        options: {
-	        	tooltips: {
-	        		enabled: false
-	        	}
-	        }
-
+		        options: {
+		        	tooltips: {
+		        		enabled: false
+		        	}
+		        }
 		}
-
 		return new ChartJS(ctx, config);
 	}
 }
