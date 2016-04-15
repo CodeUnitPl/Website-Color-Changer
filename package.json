@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
+    "chart.js": "^2.0.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1"
   },
