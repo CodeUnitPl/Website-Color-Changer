@@ -8,10 +8,6 @@ export class Tabs extends React.Component{
 		}
 	}
 
-	onTabChanged(index) {
-		this.props.selected = index;
-	}
-
 	onTabClick(e) {
 		const currentSelected = e.currentTarget.getAttribute('data-name');
 		this.state.selected = currentSelected;
