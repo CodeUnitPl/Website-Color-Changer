@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDom from 'react-dom'
+import ReactDOM from 'react-dom'
 import Colors from './utils.js'
 import {ColorsList, Chart, Tabs} from './ui.js'
 
@@ -14,6 +14,6 @@ window.onload = function() {
 	colorSetsNames.unshift(defaultColor);
 	
 	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, default: defaultColor}), tabsContainerNode);
-	ReactDom.render(React.createElement(ColorsList, {colors: colors}), colosListContainerNode);
+	ReactDOM.render(React.createElement(ColorsList, {colors: colors}), colosListContainerNode);
 	new Chart(colors, defaultColor);
 };
