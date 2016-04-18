@@ -21,7 +21,7 @@ export default class Colors {
 			text: {},
 			background: {},
 			get all() {
-				var allColors = Array.prototype.concat(Object.keys(text), Object.keys(background));
+				var allColors = Array.prototype.concat(Object.keys(this.text), Object.keys(this.background));
 				var uniqueColors = Array.from(allColors);
 				var result = {};
 				for(var color of uniqueColors) {
