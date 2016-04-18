@@ -48,7 +48,6 @@ window.onload = function() {
 
 	const defaultColorsSet = 'all';
 	const colorSetsNames = Object.keys(colors);
-	colorSetsNames.unshift(defaultColorsSet);
 	
 	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, defaultItemName: defaultColorsSet}), tabsContainerNode);
 	ReactDOM.render(React.createElement(ColorsList, {colors: colors, defaultColorsSet: defaultColorsSet}), colosListContainerNode);
