@@ -45,6 +45,11 @@ export class Chart {
 		        options: {
 		        	tooltips: {
 		        		enabled: false
+		        	},
+		        	elements: {
+		        		arc: {
+		        			borderWidth: 0
+		        		}
 		        	}
 		        }
 		}
