@@ -21,7 +21,7 @@ window.onload = function() {
 	const colorSetsNames = Object.keys(colors);
 	colorSetsNames.unshift(defaultColor);
 	
-	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, default: defaultColor}), tabsContainerNode);
+	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, defaultItemName: defaultColor}), tabsContainerNode);
 	ReactDOM.render(React.createElement(ColorsList, {colors: colors}), colosListContainerNode);
 	new Chart(colors, defaultColor);
 };

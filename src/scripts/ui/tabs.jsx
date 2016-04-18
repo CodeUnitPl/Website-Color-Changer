@@ -4,19 +4,18 @@ export class Tabs extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state =  { 
-			selected: props.default
+			selected: props.defaultItemName
 		}
 	}
 
 	onTabClick(e) {
 		const currentSelected = e.currentTarget.getAttribute('data-name');
-		this.state.selected = currentSelected;
-		//TODO: emit
+		this.setState({selected: currentSelected});
+		notificationCenter.emit('on-color-set-change', currentSelected);
 	}
 
 	render() {
 		const _this = this;
-		console.log(this.props.items);
 		return (
 			<ul>
 				{this.props.items.map(function(item, index) {
@@ -30,5 +29,5 @@ export class Tabs extends React.Component{
 
 Tabs.propTypes = {
 	items: React.PropTypes.array.isRequired,
-	default: React.PropTypes.string.isRequired
+	defaultItemName: React.PropTypes.string.isRequired
 }
