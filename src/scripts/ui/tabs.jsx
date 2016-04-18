@@ -4,7 +4,7 @@ export class Tabs extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state =  { 
-			selected: props.default
+			selected: props.defaultItemName
 		}
 	}
 
@@ -16,7 +16,6 @@ export class Tabs extends React.Component{
 
 	render() {
 		const _this = this;
-		console.log(this.props.items);
 		return (
 			<ul>
 				{this.props.items.map(function(item, index) {
@@ -30,5 +29,5 @@ export class Tabs extends React.Component{
 
 Tabs.propTypes = {
 	items: React.PropTypes.array.isRequired,
-	default: React.PropTypes.string.isRequired
+	defaultItemName: React.PropTypes.string.isRequired
 }
