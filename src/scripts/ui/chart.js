@@ -9,7 +9,7 @@ export class Chart {
 			label: type
 		}
 
-		for(let color of Object.keys(colors).sort()) {
+		for(let color of colors.__keys) {
 			result.data.push(1)
 			result.backgroundColor.push(color)
 		}

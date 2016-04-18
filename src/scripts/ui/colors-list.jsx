@@ -42,7 +42,7 @@ export class ColorsList extends React.Component {
 		return (
 				<ul className="colors-list">
 					{
-						Object.keys(colors).sort().map(function(color) {
+						colors.__keys.map(function(color) {
 							return <ColorListElement key={color} color={color} elements={colors[color]} />
 						})
 					}
