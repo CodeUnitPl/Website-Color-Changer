@@ -1,3 +1,3 @@
-export * from './ui/ColorsList.jsx'
-export * from './ui/chart.jsx'
+export * from './ui/colors-list.jsx'
+export * from './ui/chart.js'
 export * from './ui/tabs.jsx'
