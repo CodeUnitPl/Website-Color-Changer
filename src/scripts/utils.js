@@ -4,9 +4,9 @@ export default class Colors {
 
 	static rgbaStringToHex(color) {
 		let rgba = color.match(/(\d|\.)+/g);
-		let r = parseInt(rgba[0]).toString(16);
-		let g = parseInt(rgba[1]).toString(16);
-		let b = parseInt(rgba[2]).toString(16);
+		let r = parseInt(rgba[0]).toString(16).replace(/^(.)$/, '0$1');
+		let g = parseInt(rgba[1]).toString(16).replace(/^(.)$/, '0$1');
+		let b = parseInt(rgba[2]).toString(16).replace(/^(.)$/, '0$1');
 		let a = parseFloat(rgba[3]) || 1.;
 
 		let rgbHex = ['#', r, g, b].join('');
@@ -20,8 +20,14 @@ export default class Colors {
 		const colors = {
 			text: {},
 			background: {},
-			all: function() {
-				return [1, 2, 3];
+			get all() {
+				var allColors = Array.prototype.concat(Object.keys(text), Object.keys(background));
+				var uniqueColors = Array.from(allColors);
+				var result = {};
+				for(var color of uniqueColors) {
+					result[color] = Array.prototype.concat(this.text[color], this.background[color]);
+				}
+				return result;
 			}
 		}
 
