@@ -1,1 +1,47 @@
 @import "colors-list.styl"
+
+$tab-border-color = rgba(127, 127, 127, 0.8)
+
+div#tabs-container
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	height: 50px
+	
+	ul
+		background-color: #E2E2E2
+		display: inline-block
+		list-style: none
+		padding: 3px
+		margin: 0
+		padding-left:8px
+		height: 20px
+		width: 100%
+		border-bottom: 1px solid $tab-border-color
+		
+		> li
+			display: table-cell
+			text-transform: capitalize
+			font-family: Sans-Serif
+			font-size: 10.5pt
+			line-height: 22px
+			margin-top: 3px
+			padding: 0 10px
+			cursor: pointer
+			
+			&:hover
+				background-color: rgba(0,0,0,0.1)
+			
+			&.selected
+				border: 1px solid $tab-border-color
+				border-bottom-color: white
+				background-color: white
+
+div#content
+	position: absolute
+	top: 50px
+	left: 0
+	right: 0
+	bottom: 0
+	overflow: hidden
