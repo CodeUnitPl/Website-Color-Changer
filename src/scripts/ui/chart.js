@@ -9,8 +9,8 @@ export class Chart {
 			label: type
 		}
 
-		for(let color in colors) {
-			result.data.push(colors[color].length)
+		for(let color of Object.keys(colors).sort()) {
+			result.data.push(1)
 			result.backgroundColor.push(color)
 		}
 
@@ -18,17 +18,8 @@ export class Chart {
 	}
 
 	chartJSDataFromColors(type) {
-		let datasets = [];
-		if(type == 'all') {
-			for(let key of Object.keys(this.colors)) { 
-				datasets.push(this.chartJSDatasetForType(key));
-			}
-		} else {
-			datasets.push(this.chartJSDatasetForType(type));
-		}
-
 		return {
-			datasets: datasets,
+			datasets: [this.chartJSDatasetForType(type)],
 			labels: []
 		};
 	}
