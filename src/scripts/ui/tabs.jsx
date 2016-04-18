@@ -10,8 +10,8 @@ export class Tabs extends React.Component{
 
 	onTabClick(e) {
 		const currentSelected = e.currentTarget.getAttribute('data-name');
-		this.state.selected = currentSelected;
-		//TODO: emit
+		this.setState({selected: currentSelected});
+		notificationCenter.emit('on-color-set-change', currentSelected);
 	}
 
 	render() {

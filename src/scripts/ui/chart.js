@@ -35,22 +35,22 @@ export class Chart {
 
 	onColorSetChange(setName) {
 		this.setName = setName;
-		this.chartJSData = this.chartJSDataFromColors(setName);
-		this.chart.update()
+		this.chart.config.data = this.chartJSDataFromColors(setName);
+		this.chart.update();
 	}
 
 	constructor(colors, defaultSetName) {
 		this.colors = colors;
 		this.setName = defaultSetName;
-		this.chartJSData = this.chartJSDataFromColors(defaultSetName)
 		this.chart = this.createChart();
+		notificationCenter.subscribeListener('on-color-set-change', this.onColorSetChange.bind(this), 'c-on-color-set-change')
 	}
 
 	createChart() {
 		var ctx = document.getElementById("chart-area").getContext("2d");
 		var config = {
 	        type: 'doughnut',
-	        data: this.chartJSData,
+	        data: this.chartJSDataFromColors(this.setName),
 		        options: {
 		        	tooltips: {
 		        		enabled: false
