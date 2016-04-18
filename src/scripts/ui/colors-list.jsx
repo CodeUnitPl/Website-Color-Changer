@@ -1,9 +1,18 @@
 import React from 'react'
 
 class ColorListElement extends React.Component {
+
+	constructor(props) {
+		super(props);
+	}
+
+	onClick(e) {
+		notificationCenter.emit('pick-color-for', this.props.color);
+	}
+
 	render() {
 		return (
-			<li>
+			<li onClick={this.onClick.bind(this)}>
 				<i style={{backgroundColor: this.props.color}}></i>
 				<span>{this.props.color}</span>
 			</li>//

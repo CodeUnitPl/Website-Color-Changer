@@ -8,6 +8,7 @@ import NotificationCenter from './notification-center.js'
 	const notificationCenter = new NotificationCenter();
 	notificationCenter.registerEvent('on-color-change');
 	notificationCenter.registerEvent('on-color-set-change');
+	notificationCenter.registerEvent('pick-color-for');
 	window.notificationCenter = notificationCenter;
 })();
 
