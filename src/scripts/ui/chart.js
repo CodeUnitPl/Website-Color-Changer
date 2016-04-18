@@ -40,18 +40,19 @@ export class Chart {
 	createChart() {
 		var ctx = document.getElementById("chart-area").getContext("2d");
 		var config = {
-	        type: 'doughnut',
-	        data: this.chartJSDataFromColors(this.setName),
-		        options: {
-		        	tooltips: {
-		        		enabled: false
-		        	},
-		        	elements: {
-		        		arc: {
-		        			borderWidth: 0
-		        		}
-		        	}
-		        }
+			type: 'doughnut',
+			data: this.chartJSDataFromColors(this.setName),
+			options: {
+				responsive: false,
+				tooltips: {
+					enabled: false
+				},
+				elements: {
+					arc: {
+						borderWidth: 0
+					}
+				}
+			}
 		}
 		return new ChartJS(ctx, config);
 	}
