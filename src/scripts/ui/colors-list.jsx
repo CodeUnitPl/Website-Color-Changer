@@ -17,13 +17,33 @@ ColorListElement.propTypes = {
 
 
 export class ColorsList extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			colorsSet: props.defaultColorsSet
+		}
+		this.onColorsSetChangeCallback = this.onColorsSetChange.bind(this);
+	}
+
+	onColorsSetChange(setName) {
+		this.setState({colorsSet: setName});
+	}
+
+	componentDidMount() {
+		notificationCenter.subscribeListener('on-color-set-change', this.onColorsSetChangeCallback);
+	}
+
+	componentWillUnmount() {
+		notificationCenter.unsubscribeListener('on-color-set-change', this.onColorsSetChangeCallback);
+	}
+
 	render() {
-		var colors = this.props.colors;
+		var colors = this.props.colors[this.state.colorsSet];
 		return (
 				<ul className="colors-list">
 					{
-						Object.keys(colors.background).map(function(color) {
-							return <ColorListElement key={color} color={color} elements={colors.background[color]} />
+						Object.keys(colors).map(function(color) {
+							return <ColorListElement key={color} color={color} elements={colors[color]} />
 						})
 					}
 				</ul>
