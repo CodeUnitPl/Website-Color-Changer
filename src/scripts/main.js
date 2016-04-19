@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Colors, ColorDictionary} from './utils.js'
+import {Colors, ColorDictionary, __newColorsDictKey} from './utils.js'
 import {ColorsList, Chart, Tabs, ColorPickerComponent} from './ui.js'
 import NotificationCenter from './notification-center.js'
 
@@ -30,7 +30,9 @@ window.onload = function() {
 	});
 
 	colors.text.__proto__ = colors.background.__proto__ = ColorDictionary.prototype;
-
+	colors.text[__newColorsDictKey] = {}
+	colors.background[__newColorsDictKey] = {}
+	
 	const tabsContainerNode =  document.getElementById('tabs-container');
 	const colosListContainerNode = document.getElementById('colors-list-container');
 	const colorPickerContainerNode = document.getElementById('color-picker-container');
@@ -38,7 +40,7 @@ window.onload = function() {
 	const defaultColorsSet = 'all';
 	const colorSetsNames = Object.keys(colors);
 	
-	ReactDOM.render(React.createElement(ColorPickerComponent, {defaultColorsSet: defaultColorsSet}), colorPickerContainerNode);
+	ReactDOM.render(React.createElement(ColorPickerComponent, {defaultColorsSet: defaultColorsSet, colors: colors}), colorPickerContainerNode);
 	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, defaultItemName: defaultColorsSet}), tabsContainerNode);
 	ReactDOM.render(React.createElement(ColorsList, {colors: colors, defaultColorsSet: defaultColorsSet}), colosListContainerNode);
 	new Chart(colors, defaultColorsSet);
