@@ -25,9 +25,7 @@ export class ColorDictionary {
 }
 
 export class Colors {
-
-	constructor(...args) { /* ... */ }
-
+	
 	static rgbaStringToHex(color) {
 		let rgba = color.match(/(\d|\.)+/g);
 		let r = parseInt(rgba[0]).toString(16).replace(/^(.)$/, '0$1');
@@ -59,13 +57,7 @@ export class Colors {
 			text: new ColorDictionary(),
 			background: new ColorDictionary(),
 			get all() {
-				var allColors = Array.prototype.concat(Object.keys(this.text), Object.keys(this.background));
-				var uniqueColors = Array.from(allColors);
-				var result = new ColorDictionary();
-				for(var color of uniqueColors) {
-					result[color] = Array.prototype.concat(this.text[color], this.background[color]);
-				}
-				return result;
+				return Object.assign(new ColorDictionary(), this.text, this.background);
 			}
 		}
 

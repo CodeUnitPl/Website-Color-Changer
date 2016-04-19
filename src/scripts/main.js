@@ -19,13 +19,7 @@ window.onload = function() {
 	// Just for development
 	Object.defineProperty(colors, 'all', {
 		get: function(){
-			var allColors = Array.prototype.concat(Object.keys(this.text), Object.keys(this.background));
-			var uniqueColors = Array.from(allColors);
-			var result = new ColorDictionary();
-			for(var color of uniqueColors) {
-				result[color] = Array.prototype.concat(this.text[color], this.background[color]);
-			}
-			return result;
+			return Object.assign(new ColorDictionary(), this.text, this.background);
 		}
 	});
 
