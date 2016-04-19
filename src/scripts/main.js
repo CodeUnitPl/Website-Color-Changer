@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Colors from './utils.js'
-import {ColorsList, Chart, Tabs} from './ui.js'
+import {ColorsList, Chart, Tabs, ColorPickerComponent} from './ui.js'
 import NotificationCenter from './notification-center.js'
 
 (function initNotificationCenter() {
@@ -46,10 +46,12 @@ window.onload = function() {
 
 	const tabsContainerNode =  document.getElementById('tabs-container');
 	const colosListContainerNode = document.getElementById('colors-list-container');
+	const colorPickerContainerNode = document.getElementById('color-picker-container');
 
 	const defaultColorsSet = 'all';
 	const colorSetsNames = Object.keys(colors);
 	
+	ReactDOM.render(React.createElement(ColorPickerComponent, {defaultColorsSet: defaultColorsSet}), colorPickerContainerNode);
 	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, defaultItemName: defaultColorsSet}), tabsContainerNode);
 	ReactDOM.render(React.createElement(ColorsList, {colors: colors, defaultColorsSet: defaultColorsSet}), colosListContainerNode);
 	new Chart(colors, defaultColorsSet);

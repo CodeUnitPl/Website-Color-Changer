@@ -1,4 +1,5 @@
 import React from 'react'
+import {ColorPickerComponent} from './color-picker.jsx'
 
 export class Tabs extends React.Component{	
 	constructor(props) {
@@ -22,7 +23,6 @@ export class Tabs extends React.Component{
 					return <li data-name={item} key={index} className={item==_this.state.selected ? 'selected' : undefined} onClick={_this.onTabClick.bind(_this)}> {item} </li>
 				})}
 			</ul>
-
 		);
 	}
 }
