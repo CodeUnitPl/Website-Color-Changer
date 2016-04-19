@@ -30,6 +30,13 @@ export class AllColorDictionary extends ColorDictionary {
 	constructor(...colorDictionaries) {
 		super();
 		this[__colorDictionariesKey] = colorDictionaries;
+
+		colorDictionaries.forEach(function(obj) {
+			for(var key in obj) {
+				this[key] = (this[key] || []);
+				this[key].push.apply(this[key], obj[key]);
+			}
+		}.bind(this));
 	}
 
 	setNewColor(initColor, newColor) {
@@ -39,10 +46,9 @@ export class AllColorDictionary extends ColorDictionary {
 	}
 
 	getNewColor(initColor) {
-		let t = this[__colorDictionariesKey].map(function(dict) {
+		return this[__colorDictionariesKey].map(function(dict) {
 			return dict.getNewColor(initColor);
 		});
-		return t;
 	}
 }
 
