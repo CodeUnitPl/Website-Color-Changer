@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Colors, ColorDictionary} from './utils.js'
+import {__newColorsDictKey, Colors, ColorDictionary} from './utils.js'
 import {ColorsList, Chart, Tabs} from './ui.js'
 import NotificationCenter from './notification-center.js'
 
@@ -30,6 +30,10 @@ window.onload = function() {
 	});
 
 	colors.text.__proto__ = colors.background.__proto__ = ColorDictionary.prototype;
+	colors.text[__newColorsDictKey] = {};
+	colors.background[__newColorsDictKey] = {};
+
+	colors.text.setNewColor('#515151', '#FF0000');
 
 	const tabsContainerNode =  document.getElementById('tabs-container');
 	const colosListContainerNode = document.getElementById('colors-list-container');

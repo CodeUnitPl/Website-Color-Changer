@@ -1,4 +1,4 @@
-const __newColorsDictKey = Symbol('__newColorsDictKey');
+export const __newColorsDictKey = Symbol('__newColorsDictKey');
 export class ColorDictionary {
 
 	constructor() {
