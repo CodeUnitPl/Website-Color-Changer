@@ -1,4 +1,30 @@
-export default class Colors {
+const __newColorsDictKey = Symbol('__newColorsDictKey');
+export class ColorDictionary {
+
+	constructor() {
+		this[__newColorsDictKey] = {};
+	}
+
+	get __keys() {
+		return Object.keys(this).sort(function(a,b) {
+			var _rgb1 = Colors.hexToRgb(a);
+			var _rgb2 = Colors.hexToRgb(b);
+			var hsl1 = Colors.rgbToHsl(..._rgb1);
+			var hsl2 = Colors.rgbToHsl(..._rgb2);
+			return (hsl1[0] * 0.9 + hsl1[2]*0.1)  - (hsl2[0] * 0.9 + hsl2[2]*0.1);
+		});
+	}
+
+	getNewColor(initColor) {
+		return this[__newColorsDictKey][initColor];
+	}
+
+	setNewColor(initColor, newColor) {
+		this[__newColorsDictKey][initColor] = newColor;
+	}
+}
+
+export class Colors {
 
 	constructor(...args) { /* ... */ }
 
@@ -30,12 +56,12 @@ export default class Colors {
 		const elements = element.querySelectorAll('*');
 
 		const colors = {
-			text: {},
-			background: {},
+			text: new ColorDictionary(),
+			background: new ColorDictionary(),
 			get all() {
 				var allColors = Array.prototype.concat(Object.keys(this.text), Object.keys(this.background));
 				var uniqueColors = Array.from(allColors);
-				var result = {};
+				var result = new ColorDictionary();
 				for(var color of uniqueColors) {
 					result[color] = Array.prototype.concat(this.text[color], this.background[color]);
 				}
