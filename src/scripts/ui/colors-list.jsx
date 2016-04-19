@@ -15,11 +15,11 @@ class ColorListElement extends React.Component {
 			<li onClick={this.onClick.bind(this)}>
 				<i style={{backgroundColor: this.props.color}}></i>
 				<span>{this.props.color}</span>
-				{(() => {
-					if(!!this.props.colors.getNewColor(this.props.color)) {
-						return <i className='new-color' style={{backgroundColor: this.props.colors.getNewColor(this.props.color)}}></i>//
-					}
-				})()}
+				{
+					this.props.colors.getNewColor(this.props.color).map(function(newColor) {
+						return <i className='new-color' style={{backgroundColor: newColor}}></i>//
+					})
+				}
 			</li>//
 		);
 	}
