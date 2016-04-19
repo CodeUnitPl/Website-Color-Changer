@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Colors, ColorDictionary, __newColorsDictKey} from './utils.js'
-import {ColorsList, Chart, Tabs, ColorPickerComponent} from './ui.js'
+import {ColorsList, Tabs, ColorPickerComponent} from './ui.js'
 import NotificationCenter from './notification-center.js'
 
 (function initNotificationCenter() {
@@ -37,5 +37,4 @@ window.onload = function() {
 	ReactDOM.render(React.createElement(ColorPickerComponent, {defaultColorsSet: defaultColorsSet, colors: colors}), colorPickerContainerNode);
 	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, defaultItemName: defaultColorsSet}), tabsContainerNode);
 	ReactDOM.render(React.createElement(ColorsList, {colors: colors, defaultColorsSet: defaultColorsSet}), colosListContainerNode);
-	new Chart(colors, defaultColorsSet);
 };
