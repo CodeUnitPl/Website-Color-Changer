@@ -1,8 +1,10 @@
-const __newColorKey = Symbol('__newColor');
+const __newColorsDictKey = Symbol('__newColorsDictKey');
 export class ColorDictionary {
-	get __newColor() { return this[__newColorKey]; }
-	set __newColor(color) { this[__newColorKey] = color; }
-	
+
+	constructor() {
+		this[__newColorsDictKey] = {};
+	}
+
 	get __keys() {
 		return Object.keys(this).sort(function(a,b) {
 			var _rgb1 = Colors.hexToRgb(a);
@@ -12,9 +14,17 @@ export class ColorDictionary {
 			return (hsl1[0] * 0.9 + hsl1[2]*0.1)  - (hsl2[0] * 0.9 + hsl2[2]*0.1);
 		});
 	}
+
+	getNewColor(initColor) {
+		return this[__newColorsDictKey][initColor];
+	}
+
+	setNewColor(initColor, newColor) {
+		this[__newColorsDictKey][initColor] = newColor;
+	}
 }
 
-export default class Colors {
+export class Colors {
 
 	constructor(...args) { /* ... */ }
 
