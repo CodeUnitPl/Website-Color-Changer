@@ -5,7 +5,7 @@ export class ColorPickerComponent extends React.Component {
 	constructor(props) {
 		super();
 		this.state = {
-			displayColorPicker: false,
+			displayColorPicker: true,
 			currentColorSet: props.defaultColorsSet,
 		};
 		this.handleChange = this.handleChange.bind(this);
@@ -19,11 +19,11 @@ export class ColorPickerComponent extends React.Component {
 	}
 
 	onColorChangeStart(color) {
-		this.setState({displayColorPicker: true, initialColor: color});
+		this.setState({initialColor: color});
 	}
 
 	onColorsSetChanged(setName) {
-		this.setState({displayColorPicker: false, currentColorSet: setName});
+		this.setState({currentColorSet: setName});
 	}
 
 	componentDidMount() {
