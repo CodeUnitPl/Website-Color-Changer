@@ -1,4 +1,5 @@
 export const __newColorsDictKey = Symbol('__newColorsDictKey');
+const __colorDictionariesKey = Symbol('color-dictionaries');
 export class ColorDictionary {
 
 	constructor() {
@@ -16,7 +17,7 @@ export class ColorDictionary {
 	}
 
 	getNewColor(initColor) {
-		return this[__newColorsDictKey][initColor];
+		return [this[__newColorsDictKey][initColor]];
 	}
 
 	setNewColor(initColor, newColor) {
@@ -24,8 +25,44 @@ export class ColorDictionary {
 	}
 }
 
+export class AllColorDictionary extends ColorDictionary {
+
+	constructor(...colorDictionaries) {
+		super();
+		this[__colorDictionariesKey] = colorDictionaries;
+
+		colorDictionaries.forEach(function(obj) {
+			for(var key in obj) {
+				this[key] = (this[key] || []);
+				this[key].push.apply(this[key], obj[key]);
+			}
+		}.bind(this));
+	}
+
+	setNewColor(initColor, newColor) {
+		this[__colorDictionariesKey].forEach(function(dict) {
+			dict.setNewColor(initColor, newColor);
+		});
+	}
+
+	getNewColor(initColor) {
+		return this[__colorDictionariesKey].map(function(dict) {
+			return dict.getNewColor(initColor);
+		});
+	}
+}
+
 export class Colors {
-	
+
+	mergeColorDictionaries(target, ...objects) {
+		objects.forEach(function(obj) {
+			for(var key in obj) {
+				target[key] = (target[key] || []).push(obj[key]);
+			}
+		});
+		return target;
+	}
+
 	static rgbaStringToHex(color) {
 		let rgba = color.match(/(\d|\.)+/g);
 		let r = parseInt(rgba[0]).toString(16).replace(/^(.)$/, '0$1');
@@ -57,7 +94,7 @@ export class Colors {
 			text: new ColorDictionary(),
 			background: new ColorDictionary(),
 			get all() {
-				return Object.assign(new ColorDictionary(), this.text, this.background);
+				return mergeColorDictionaries(new AllColorDictionary(this.text, this.background), this.text, this.background);
 			}
 		}
 

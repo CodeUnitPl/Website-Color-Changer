@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Colors, ColorDictionary, __newColorsDictKey} from './utils.js'
+import {Colors, AllColorDictionary, ColorDictionary, __newColorsDictKey} from './utils.js'
 import {ColorsList, Tabs, ColorPickerComponent} from './ui.js'
 import NotificationCenter from './notification-center.js'
 
@@ -19,7 +19,7 @@ window.onload = function() {
 	// Just for development
 	Object.defineProperty(colors, 'all', {
 		get: function(){
-			return Object.assign(new ColorDictionary(), this.text, this.background);
+			return new AllColorDictionary(this.text, this.background);
 		}
 	});
 
