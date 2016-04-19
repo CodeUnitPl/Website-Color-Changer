@@ -17,7 +17,6 @@ class ColorListElement extends React.Component {
 				<span>{this.props.color}</span>
 				{(() => {
 					if(!!this.props.colors.getNewColor(this.props.color)) {
-						console.log(123);
 						return <i className='new-color' style={{backgroundColor: this.props.colors.getNewColor(this.props.color)}}></i>//
 					}
 				})()}
