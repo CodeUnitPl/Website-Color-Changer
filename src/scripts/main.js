@@ -30,8 +30,8 @@ window.onload = function() {
 	});
 
 	colors.text.__proto__ = colors.background.__proto__ = ColorDictionary.prototype;
-	colors.text[__newColorsDictKey] = {}
-	colors.background[__newColorsDictKey] = {}
+	colors.text[__newColorsDictKey] = {};
+	colors.background[__newColorsDictKey] = {};
 	
 	const tabsContainerNode =  document.getElementById('tabs-container');
 	const colosListContainerNode = document.getElementById('colors-list-container');
