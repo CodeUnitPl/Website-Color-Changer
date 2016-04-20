@@ -10,16 +10,25 @@ class ColorListElement extends React.Component {
 		notificationCenter.emit('pick-color-for', this.props.color);
 	}
 
+	onReset(e) {
+		this.props.colors.removeNewColor(this.props.color);
+		this.forceUpdate();
+	}
+
 	render() {
+		var newColors = this.props.colors.getNewColor(this.props.color);
 		return (
 			<li onClick={this.onClick.bind(this)}>
 				<i style={{backgroundColor: this.props.color}}></i>
 				<span>{this.props.color}</span>
+				<span className='new-color'>
 				{
-					this.props.colors.getNewColor(this.props.color).map(function(newColor) {
+					newColors.map(function(newColor) {
 						return <i className='new-color' style={{backgroundColor: newColor}}></i>//
 					})
 				}
+				{newColors.length ? <i className='back' onClick={this.onReset.bind(this)}>↩</i> : ''}
+				</span>
 			</li>//
 		);
 	}

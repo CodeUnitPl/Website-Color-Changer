@@ -19,7 +19,8 @@ export class ColorPickerComponent extends React.Component {
 	}
 
 	onColorChangeStart(color) {
-		this.setState({initialColor: color});
+		const currentColor = this.props.colors[this.state.currentColorSet].getCurrentColor(color);
+		this.setState({initialColor: color, currentColor: currentColor});
 	}
 
 	onColorsSetChanged(setName) {
@@ -40,7 +41,7 @@ export class ColorPickerComponent extends React.Component {
 	render() {
 		return (
 			<div style={{display: this.state.displayColorPicker ? 'block' : 'none' }} >
-				<ColorPicker color={this.state.initialColor} onChange={this.handleChange} type="chrome" />
+				<ColorPicker color={this.state.currentColor} onChange={this.handleChange} type="chrome" />
 			</div>
 		);
 	}

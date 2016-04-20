@@ -16,13 +16,16 @@ ul.colors-list
 			width: $color-th
 			height: $color-th
 			
-			&.new-color
-				float: right
-			
 		span
 			margin-left: 15px
 			line-height: $color-th
 			vertical-align: top
+			&.new-color
+				height: 100%
+				float: right
+				.back
+					float: right
+					text-align: center
 		
 		&:hover
 			background-color: rgba(200, 200, 200, 0.1)
