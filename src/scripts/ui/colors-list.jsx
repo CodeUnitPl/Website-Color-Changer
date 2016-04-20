@@ -1,18 +1,13 @@
 import React from 'react'
 
 class ColorListElement extends React.Component {
-
-	constructor(props) {
-		super(props);
-	}
-
 	onClick(e) {
 		notificationCenter.emit('pick-color-for', this.props.color);
 	}
 
 	render() {
 		return (
-			<li onClick={this.onClick.bind(this)}>
+			<li className={this.props.isSelected ? 'selected' : undefined} onClick={this.onClick.bind(this)}>
 				<i style={{backgroundColor: this.props.color}}></i>
 				<span>{this.props.color}</span>
 				{
@@ -34,10 +29,12 @@ export class ColorsList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			colorsSet: props.defaultColorsSet
+			colorsSet: props.defaultColorsSet,
+			selectedColor: undefined
 		}
 		this.onColorsSetChangeCallback = this.onColorsSetChange.bind(this);
 		this.onColorChange = this.onColorChange.bind(this);
+		this.onColorPickingStart = this.onColorPickingStart.bind(this);
 	}
 
 	onColorsSetChange(setName) {
@@ -48,23 +45,31 @@ export class ColorsList extends React.Component {
 		this.forceUpdate();
 	}
 
+	onColorPickingStart(color) {
+		console.log(color);
+		this.setState({selectedColor: color});
+	}
+
 	componentDidMount() {
 		notificationCenter.subscribeListener('on-color-set-change', this.onColorsSetChangeCallback, 'cl-on-color-set-change-listener');
 		notificationCenter.subscribeListener('on-color-change', this.onColorChange, 'cl-on-color-change-listener');
+		notificationCenter.subscribeListener('pick-color-for', this.onColorPickingStart, 'cl-on-color-pick-start-listener');
 	}
 
 	componentWillUnmount() {
 		notificationCenter.unsubscribeListener('on-color-set-change', this.onColorsSetChangeCallback);
-		notificationCenter.unsubscribeListener('on-color-change', this.onColorChange, 'cl-on-color-change-listener');
+		notificationCenter.unsubscribeListener('on-color-change', 'cl-on-color-change-listener');
+		notificationCenter.unsubscribeListener('pick-color-for', 'cl-on-color-pick-start-listener');
 	}
 
 	render() {
-		var colors = this.props.colors[this.state.colorsSet];
+		let colors = this.props.colors[this.state.colorsSet];
+		let selectedColor = this.state.selectedColor;
 		return (
 			<ul className="colors-list">
 				{
 					colors.__keys.map(function(color) {
-						return <ColorListElement key={color} color={color} colors={colors} />
+						return <ColorListElement key={color} isSelected={selectedColor && selectedColor == color} color={color} colors={colors} />
 					})
 				}
 			</ul>
