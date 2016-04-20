@@ -2,6 +2,13 @@
 
 $tab-border-color = rgba(127, 127, 127, 0.8)
 
+html
+	width: 100%
+	height: 100%
+	overflow: hidden
+	font-family: Sans-Serif
+	font-size: 10.5pt
+
 div#tabs-container
 	position: absolute
 	top: 0
@@ -22,8 +29,6 @@ div#tabs-container
 		> li
 			display: table-cell
 			text-transform: capitalize
-			font-family: Sans-Serif
-			font-size: 10.5pt
 			line-height: 22px
 			margin-top: 3px
 			padding: 0 10px
@@ -44,13 +49,31 @@ div#content
 	right: 0
 	bottom: 0
 	overflow: hidden
+	padding: 8px
+	display: flex
 	
 	div#colors-list-container
-		position: absolute
-		top: 327px
-		left: 0
-		right: 0
-		bottom: 10px
 		overflow-y: scroll
 		overflow-x: hidden
-		padding: 0 10px
+
+@media (orientation:landscape)
+	div#content
+		flex-direction: row-reverse
+		
+		div#colors-list-container
+			height: 100%
+			flex-grow: 2
+			margin-right: 8px
+			
+@media (orientation:portrait)
+	div#content
+		flex-direction: column
+		
+		div#colors-list-container
+			align-self: stretch
+			height: 100%
+			
+		div#color-picker-container
+			margin: 0 auto
+			margin-bottom: 8px
+			align-items: flex-start
