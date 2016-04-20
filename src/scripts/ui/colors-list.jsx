@@ -46,7 +46,6 @@ export class ColorsList extends React.Component {
 	}
 
 	onColorPickingStart(color) {
-		console.log(color);
 		this.setState({selectedColor: color});
 	}
 
