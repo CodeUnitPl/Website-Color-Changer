@@ -49,7 +49,7 @@ export class AllColorDictionary extends ColorDictionary {
 
 	setNewColor(initColor, newColor) {
 		this[__colorDictionariesKey].forEach(function(dict) {
-			dict.setNewColor(initColor, newColor);
+			dict[initColor] && dict.setNewColor(initColor, newColor);
 		});
 	}
 
