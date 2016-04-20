@@ -16,12 +16,20 @@ export class ColorDictionary {
 		});
 	}
 
+	getCurrentColor(initColor) {
+		return this.getNewColor(initColor)[0] || initColor;
+	}
+
 	getNewColor(initColor) {
-		return [this[__newColorsDictKey][initColor]];
+		return [this[__newColorsDictKey][initColor]].filter((e) => !!e);
 	}
 
 	setNewColor(initColor, newColor) {
 		this[__newColorsDictKey][initColor] = newColor;
+	}
+
+	removeNewColor(initColor) {
+		delete this[__newColorsDictKey][initColor];
 	}
 }
 
@@ -41,14 +49,24 @@ export class AllColorDictionary extends ColorDictionary {
 
 	setNewColor(initColor, newColor) {
 		this[__colorDictionariesKey].forEach(function(dict) {
-			dict.setNewColor(initColor, newColor);
+			dict[initColor] && dict.setNewColor(initColor, newColor);
 		});
 	}
 
 	getNewColor(initColor) {
 		return this[__colorDictionariesKey].map(function(dict) {
-			return dict.getNewColor(initColor);
-		});
+			return dict.getNewColor(initColor)[0];
+		}).filter((e) => !!e);
+	}
+
+	removeNewColor(initColor) {
+		this[__colorDictionariesKey].map(function(dict) {
+			return dict.removeNewColor(initColor);
+		})
+	}
+
+	getCurrentColor(initColor) {
+		return initColor;
 	}
 }
 
