@@ -29,7 +29,7 @@ export class ColorDictionary {
 	}
 
 	removeNewColor(initColor) {
-		this[__newColorsDictKey][initColor] = undefined;
+		delete this[__newColorsDictKey][initColor];
 	}
 }
 
