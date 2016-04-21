@@ -4,13 +4,14 @@ import {Colors, AllColorDictionary, ColorDictionary, __newColorsDictKey} from '.
 import {ColorsList, Tabs, ColorPickerComponent} from './ui.js'
 import NotificationCenter from './notification-center.js'
 
-(function initNotificationCenter() {
+function initNotificationCenter() {
 	const notificationCenter = new NotificationCenter();
 	notificationCenter.registerEvent('on-color-change');
 	notificationCenter.registerEvent('on-color-set-change');
 	notificationCenter.registerEvent('pick-color-for');
+	notificationCenter.registerEvent('on-component-update');
 	window.notificationCenter = notificationCenter;
-})();
+};
 
 window.load = (colors) => {
 	const tabsContainerNode =  document.getElementById('tabs-container');
@@ -20,9 +21,6 @@ window.load = (colors) => {
 	const defaultColorsSet = 'text';
 	const colorSetsNames = Object.keys(colors);
 
-	alert(colosListContainerNode);
-	alert(JSON.stringify(colorSetsNames));
-	
 	ReactDOM.render(React.createElement(ColorPickerComponent, {defaultColorsSet: defaultColorsSet, colors: colors}), colorPickerContainerNode);
 	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, defaultItemName: defaultColorsSet}), tabsContainerNode);
 	ReactDOM.render(React.createElement(ColorsList, {colors: colors, defaultColorsSet: defaultColorsSet}), colosListContainerNode);
@@ -44,4 +42,15 @@ window.parseColors = (_colors) => {
 	colors.background[__newColorsDictKey] = {};
 
 	return colors;
+}
+
+window.initComponent = (sidebar) => {
+	const updateSidebarHeight = () => {
+		var height = document.body.clientHeight + 'px';
+		sidebar.setHeight(height);
+	}
+	
+	initNotificationCenter();
+	notificationCenter.subscribeListener('on-component-update', updateSidebarHeight, 'm-on-component-update-listener');
+	window.onresize = () => { updateSidebarHeight(); }
 }
