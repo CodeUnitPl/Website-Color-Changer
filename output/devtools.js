@@ -1,31 +1,33 @@
-var extWindow;
+(function() {
+	this.extWindow;
+	this.tabId = chrome.devtools.inspectedWindow.tabId;
+	this.backgroundPageConnection = chrome.runtime.connect({name: 'wcc'});
+	this.connectionProxy = {
+		postMessage: function(object) {
+			object['tabId'] = tabId;
+			backgroundPageConnection.postMessage(object);
+		}
+	}
 
-chrome.devtools.panels.elements.createSidebarPane(
-	"Colors",
-	function(sidebar) {
-		sidebar.setPage('index.html');
+	backgroundPageConnection.onMessage.addListener(function(message) {
+		var t = JSON.parse(JSON.stringify(message.colors));
+		switch(message.action) {
+			case 'set-colors':
+				extWindow.setColors(t);
+			break;
+		}
+	});
 
-		sidebar.onShown.addListener( (_window) => {
-			extWindow = _window;
-			extWindow.initComponent(sidebar);
+	chrome.devtools.panels.elements.createSidebarPane(
+		"Colors",
+		function(sidebar) {
+			sidebar.setPage('index.html');
 
-			backgroundPageConnection.postMessage({
-				name: 'init',
-				tabId: chrome.devtools.inspectedWindow.tabId
+			sidebar.onShown.addListener( (_window) => {
+				extWindow = _window;
+				extWindow.initComponent(sidebar, this.connectionProxy);
+				connectionProxy.postMessage({name: 'init'});
 			});
-		});
-	}
-);
-
-var backgroundPageConnection = chrome.runtime.connect({
-	name: 'wcc'
-});
-
-backgroundPageConnection.onMessage.addListener(function(message) {
-	var t = JSON.parse(JSON.stringify(message.colors));
-	switch(message.action) {
-		case 'set-colors':
-			extWindow.setColors(t);
-		break;
-	}
-});
+		}
+	);
+})();
