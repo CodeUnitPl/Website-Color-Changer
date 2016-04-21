@@ -59,6 +59,7 @@ export class ColorsList extends React.Component {
 	}
 
 	componentDidMount() {
+		notificationCenter.emit('on-component-update');
 		notificationCenter.subscribeListener('on-color-set-change', this.onColorsSetChangeCallback, 'cl-on-color-set-change-listener');
 		notificationCenter.subscribeListener('on-color-change', this.onColorChange, 'cl-on-color-change-listener');
 		notificationCenter.subscribeListener('pick-color-for', this.onColorPickingStart, 'cl-on-color-pick-start-listener');
@@ -68,6 +69,10 @@ export class ColorsList extends React.Component {
 		notificationCenter.unsubscribeListener('on-color-set-change', this.onColorsSetChangeCallback);
 		notificationCenter.unsubscribeListener('on-color-change', 'cl-on-color-change-listener');
 		notificationCenter.unsubscribeListener('pick-color-for', 'cl-on-color-pick-start-listener');
+	}
+
+	componentDidUpdate() {
+		notificationCenter.emit('on-component-update');
 	}
 
 	render() {
