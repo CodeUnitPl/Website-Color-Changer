@@ -1,10 +1,15 @@
 export const __newColorsDictKey = Symbol('__newColorsDictKey');
 const __colorDictionariesKey = Symbol('color-dictionaries');
+const __colorSetName = Symbol('color-set-name');
+
 export class ColorDictionary {
 
 	constructor() {
 		this[__newColorsDictKey] = {};
 	}
+
+	get name(){return this[__colorSetName];}
+	set name(name){this[__colorSetName] = name;}
 
 	get __keys() {
 		return Object.keys(this).sort(function(a,b) {
@@ -40,7 +45,7 @@ export class AllColorDictionary extends ColorDictionary {
 		this[__colorDictionariesKey] = colorDictionaries;
 
 		colorDictionaries.forEach(function(obj) {
-			for(var key in obj) {
+			for(var key of Object.keys(obj)) {
 				this[key] = (this[key] || []);
 				this[key].push.apply(this[key], obj[key]);
 			}
@@ -67,6 +72,14 @@ export class AllColorDictionary extends ColorDictionary {
 
 	getCurrentColor(initColor) {
 		return initColor;
+	}
+
+	get newColorsObject() {
+		const t = this[__colorDictionariesKey].reduce(function(p, c){ 
+			p[c.name] = c[__newColorsDictKey];
+			return p;
+		}, {});
+		return t;
 	}
 }
 
