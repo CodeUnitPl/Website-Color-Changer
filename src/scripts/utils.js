@@ -105,34 +105,6 @@ export class Colors {
 		}
 	}
 
-	static getColorsOfDomElement(element) {
-		const elements = element.querySelectorAll('*');
-
-		const colors = {
-			text: new ColorDictionary(),
-			background: new ColorDictionary(),
-			get all() {
-				return mergeColorDictionaries(new AllColorDictionary(this.text, this.background), this.text, this.background);
-			}
-		}
-
-		for(let i=0; i<elements.length; i++) {
-			const style						= getComputedStyle(elements[i]);
-			const [bgColor, bgAlpha]		= this.rgbaStringToHex(style.backgroundColor);
-			const [textColor, textAlpha]	= this.rgbaStringToHex(style.color);
-
-			if(bgColor && bgAlpha) {
-				colors.background[bgColor] = (colors.background[bgColor] || []).concat(elements[i]);
-			}
-
-			if(textColor && textAlpha) {
-				colors.text[textColor] = (colors.text[textColor] || []).concat(elements[i]);
-			}
-		}
-
-		return colors;
-	}
-
 	static rgbToHsl(r, g, b){
 	 	var max = Math.max(r, g, b), min = Math.min(r, g, b);
 	 	var h, s, l = (max + min) / 2;
