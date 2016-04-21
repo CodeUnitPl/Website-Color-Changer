@@ -37,6 +37,14 @@ window.parseColors = (_colors) => {
 		background: _colors.background.reduce(function(p, c) { p[c] = [{}]; return p; }, new Object())
 	}
 
+	Object.defineProperty(colors, 'all', {
+		get: function(){
+			return new AllColorDictionary(this.text, this.background);
+		},
+		enumerable: true
+	});
+
+
 	colors.text.__proto__ = colors.background.__proto__ = ColorDictionary.prototype;
 	colors.text[__newColorsDictKey] = {};
 	colors.background[__newColorsDictKey] = {};
@@ -46,10 +54,10 @@ window.parseColors = (_colors) => {
 
 window.initComponent = (sidebar) => {
 	const updateSidebarHeight = () => {
-		var height = document.body.clientHeight + 'px';
+		const height = document.body.clientHeight + 'px';
 		sidebar.setHeight(height);
 	}
-	
+
 	initNotificationCenter();
 	notificationCenter.subscribeListener('on-component-update', updateSidebarHeight, 'm-on-component-update-listener');
 	window.onresize = () => { updateSidebarHeight(); }
