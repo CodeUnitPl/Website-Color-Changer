@@ -18,7 +18,7 @@ window.load = (colors) => {
 	const colosListContainerNode = document.getElementById('colors-list-container');
 	const colorPickerContainerNode = document.getElementById('color-picker-container');
 
-	const defaultColorsSet = 'text';
+	const defaultColorsSet = 'all';
 	const colorSetsNames = Object.keys(colors);
 
 	ReactDOM.render(React.createElement(ColorPickerComponent, {defaultColorsSet: defaultColorsSet, colors: colors}), colorPickerContainerNode);
