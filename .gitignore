@@ -3,3 +3,5 @@ output
 !output/devtools.js
 !output/devtools.html
 !output/manifest.json
+!output/background.js
+!output/content.js
