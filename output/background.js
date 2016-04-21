@@ -27,11 +27,13 @@ function DevtoolsCommunicationModule() {
 				connections[message.tabId] = port;
 				chrome.tabs.executeScript(null, {file: 'content.js'});
 				break;
+			default:
+				contentCommunicationModule.sendMessage(message);
+				break;
 		}
 	}
 
 	this.sendMessage = function(tabId, request) {
-		alert(4);
 		connections[tabId] && connections[tabId].postMessage(request);
 	}
 };
@@ -39,7 +41,6 @@ function DevtoolsCommunicationModule() {
 // Content script communication Module
 function ContentCommunicationModule() {
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-		alert(6);
 		sender.tab && devtoolsCommunicationModule.sendMessage(sender.tab.id, request);
 	});
 

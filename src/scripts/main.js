@@ -56,13 +56,26 @@ window.parseColors = (_colors) => {
 	return colors;
 }
 
-window.initComponent = (sidebar, backgroundPageConnection) => {
-	const updateSidebarHeight = () => {
-		const height = document.body.clientHeight + 'px';
-		sidebar.setHeight(height);
-	}
-
+window.initComponent = (sidebar, connectionProxy) => {
 	initNotificationCenter();
-	notificationCenter.subscribeListener('on-component-update', updateSidebarHeight, 'm-on-component-update-listener');
-	window.onresize = () => { updateSidebarHeight(); }
+	(function() {
+		var prevHeight = document.body.clientHeight;
+		const updateSidebarHeight = () => {
+			var newHeight = document.body.clientHeight;
+			if(prevHeight != newHeight) {
+				sidebar.setHeight(newHeight + 'px');
+				prevHeight = newHeight;
+			}
+		}
+		const onColorChangeCallback = (colorChangeObject) => {
+			var colorChangeAction = Object.assign(colorChangeObject);
+			colorChangeAction['action'] = 'onColorChange';
+			connectionProxy.postMessage(colorChangeObject);
+		}
+
+		notificationCenter.subscribeListener('on-component-update', updateSidebarHeight, 'm-on-component-update-listener');
+		notificationCenter.subscribeListener('on-color-change', onColorChangeCallback,'m-on-component-update-listener');
+		
+		window.onresize = () => { updateSidebarHeight(); }
+	})();
 }
