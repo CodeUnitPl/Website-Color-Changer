@@ -2,18 +2,16 @@
 
 $tab-border-color = rgba(127, 127, 127, 0.8)
 
-body
-	position: absolute
-	top: 0
-	left: 0
-	right: 0
-	bottom: 0
+html, body
+	margin: 0
+	padding: 0
 
 div#tabs-container
-	position: absolute
+	position: fixed
 	top: 0
 	left: 0
 	right: 0
+	z-index: 100
 	
 	ul
 		background-color: #E2E2E2
@@ -42,38 +40,29 @@ div#tabs-container
 				border-bottom-color: white
 				background-color: white
 
-div#content
-	position: absolute
-	top: 27px
-	left: 0
-	right: 0
-	bottom: 0
-	overflow: hidden
-	padding: 8px
-	display: flex
-	
-	div#colors-list-container
-		overflow-y: scroll
-		overflow-x: hidden
 
-@media (orientation:landscape)
+div#content
+	margin-top: 27px
+	padding: 8px
+
+@media (max-width: 425px)
 	div#content
-		flex-direction: row-reverse
-		
-		div#colors-list-container
-			height: 100%
-			flex-grow: 2
-			margin-right: 8px
-			
-@media (orientation:portrait)
-	div#content
-		flex-direction: column
-		
-		div#colors-list-container
-			align-self: stretch
-			height: 100%
-			
+
 		div#color-picker-container
-			margin: 0 auto
-			margin-bottom: 8px
-			align-items: flex-start
+			display: inline-block
+			width: 100%
+			text-align: center
+			margin-bottom: 10px
+			
+			& > div
+				display: inline-block !important
+			
+@media (min-width: 426px)
+	div#content		
+		div#colors-list-container
+			margin-right: 234px
+
+		div#color-picker-container
+			position: fixed
+			right: 8px
+			top: 35px
