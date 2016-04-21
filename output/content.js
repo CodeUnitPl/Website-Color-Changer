@@ -48,4 +48,29 @@ function getColorsForDevtools(colors) {
 	}
 }
 
+function onColorChange(request) {
+	var set = request.colorsSet;
+	if(set == 'all' || set == 'text') {
+		var elements = colors.text[request.initialColor];
+		elements && elements.forEach(function(element) {
+			element.style.color = request.currentColor;
+		});
+	}
+
+	if(set == 'all' || set == 'background') {
+		var elements = colors.background[request.initialColor];
+		elements && elements.forEach(function(element) {
+			element.style.backgroundColor = request.currentColor;
+		});
+	}
+}
+
 chrome.runtime.sendMessage({action: 'set-colors', colors: getColorsForDevtools(colors)});
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	switch(request.action) {
+		case 'onColorChange':
+			onColorChange(request);
+			break;
+	}
+
+});
