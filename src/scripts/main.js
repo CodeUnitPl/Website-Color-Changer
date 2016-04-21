@@ -58,7 +58,7 @@ window.initComponent = (sidebar, connectionProxy) => {
 		var prevHeight = document.body.clientHeight;
 		const updateSidebarHeight = () => {
 			var newHeight = document.body.clientHeight;
-			if(true || prevHeight != newHeight) {
+			if(prevHeight != newHeight) {
 				sidebar.setHeight(newHeight + 'px');
 				prevHeight = newHeight;
 			}
@@ -71,7 +71,7 @@ window.initComponent = (sidebar, connectionProxy) => {
 
 		notificationCenter.subscribeListener('on-component-update', updateSidebarHeight, 'm-on-component-update-listener');
 		notificationCenter.subscribeListener('on-color-change', onColorChangeCallback,'m-on-component-update-listener');
+		
+		window.onresize = () => { updateSidebarHeight(); }
 	})();
-
-	window.onresize = () => { updateSidebarHeight(); }
 }
