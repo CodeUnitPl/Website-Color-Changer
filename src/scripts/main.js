@@ -52,7 +52,7 @@ window.parseColors = (_colors) => {
 	return colors;
 }
 
-window.initComponent = (sidebar) => {
+window.initComponent = (sidebar, backgroundPageConnection) => {
 	const updateSidebarHeight = () => {
 		const height = document.body.clientHeight + 'px';
 		sidebar.setHeight(height);
