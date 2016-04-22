@@ -6,19 +6,26 @@ export class Console extends React.Component {
 		this.state = {
 			displayConsole: false
 		}
-		this.onExportChanges = this.onExportChanges.bind(this);
+		this.onConsoleToggle = this.onConsoleToggle.bind(this);
+		this.onColorChange = this.onColorChange.bind(this);
 	}
 
-	onExportChanges() {
+	onConsoleToggle() {
 		this.setState({displayConsole: !this.state.displayConsole});
 	}
 
+	onColorChange() {
+		this.forceUpdate();
+	}
+
 	componentDidMount() {
-		notificationCenter.subscribeListener('toggle-console', this.onExportChanges, 'c-on-export-changes');
+		notificationCenter.subscribeListener('toggle-console', this.onConsoleToggle, 'c-on-export-changes');
+		notificationCenter.subscribeListener('on-color-change', this.onColorChange, 'console-on-color-change');
 	}
 
 	componentDidUnpount() {
 		notificationCenter.unsubscribeListener('toggle-console', 'c-on-export-changes');
+		notificationCenter.unsubscribeListener('on-color-change', 'console-on-color-change');
 	}
 
 	render() {
