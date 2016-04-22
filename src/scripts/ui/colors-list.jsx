@@ -1,12 +1,22 @@
 import React from 'react'
 
 class ColorListElement extends React.Component {
+	constructor(props) {
+		super(props);
+		this.parent = this.props.parent;
+	}
+
 	onClick(e) {
 		notificationCenter.emit('pick-color-for', this.props.color);
 	}
 
 	onReset(e) {
 		this.props.colors.removeNewColor(this.props.color);
+		notificationCenter.emit('on-color-change', {
+			colorsSet: this.parent.state.colorsSet,
+			initialColor: this.props.color,
+			currentColor: this.props.color
+		});
 		this.forceUpdate();
 	}
 
@@ -82,8 +92,8 @@ export class ColorsList extends React.Component {
 			<ul className="colors-list">
 				{
 					colors.__keys.map(function(color) {
-						return <ColorListElement key={color} isSelected={selectedColor && selectedColor == color} color={color} colors={colors} />
-					})
+						return <ColorListElement parent={this} key={color} isSelected={selectedColor && selectedColor == color} color={color} colors={colors} />
+					}, this)
 				}
 			</ul>
 		);
