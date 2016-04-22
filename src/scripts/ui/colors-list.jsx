@@ -17,12 +17,12 @@ class ColorListElement extends React.Component {
 				<i style={{backgroundColor: this.props.color}}></i>
 				<span>{this.props.color}</span>
 				<span className='new-color'>
-				{
-					newColors.map(function(newColor) {
-						return <i className='new-color' style={{backgroundColor: newColor}}></i>//
-					})
-				}
-				{newColors.length ? <i className='back' onClick={this.onReset.bind(this)}>↩</i> : ''}
+					{
+						newColors.map(function(newColor) {
+							return <i className='new-color' style={{backgroundColor: newColor}}></i>//
+						})
+					}
+					{newColors.length ? <i className='back' onClick={this.onReset.bind(this)}>↩</i> : ''}
 				</span>
 			</li>//
 		);
