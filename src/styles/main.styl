@@ -1,0 +1,36 @@
+@import "colors-list.styl"
+@import "tabs.styl"
+@import "console.styl"
+
+$tab-border-color = rgba(127, 127, 127, 0.8)
+
+html, body
+	margin: 0
+	padding: 0
+	overflow-y: hidden
+
+div#content
+	margin-top: 27px
+	padding: 8px
+
+@media (max-width: 455px)
+	div#content
+
+		div#color-picker-container
+			display: inline-block
+			width: 100%
+			text-align: center
+			margin-bottom: 10px
+			
+			& > div
+				display: inline-block !important
+			
+@media (min-width: 455px)
+	div#content		
+		div#colors-list-container, div#console-container
+			margin-right: 234px
+			
+		div#color-picker-container
+			position: fixed
+			right: 8px
+			top: 35px

@@ -1,0 +1,39 @@
+$color-th = 30px
+
+ul.colors-list
+	padding: 0
+	margin: 0
+	list-style: none
+	li
+		cursor: pointer
+		display: block
+		height: 30px
+
+		&:nth-child(even)
+			background-color: rgba(127, 127, 127, 0.1)
+
+		&:hover
+			background-color: rgba(200, 200, 200, 0.1)
+			
+		&.selected
+			background-color: rgb(221, 238, 255)
+		
+		&.selected:hover
+			background-color: rgb(235, 242, 252)
+
+		i
+			display: inline-block
+			width: $color-th
+			height: $color-th
+			
+		span
+			margin-left: 15px
+			line-height: $color-th
+			vertical-align: top
+
+			&.new-color
+				height: 100%
+				float: right
+				.back
+					float: right
+					text-align: center
