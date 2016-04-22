@@ -22,15 +22,14 @@ export class Tabs extends React.Component{
 	}
 
 	render() {
-		const _this = this;
 		return (
 			<ul>
 				{this.props.items.map(function(item, index) {
-					return <li data-name={item} key={index} className={item==_this.state.selected ? 'selected' : undefined} onClick={_this.onTabClick.bind(_this)}> {item} </li>
-				})}
+					return <li data-name={item} key={index} className={item==this.state.selected ? 'selected' : undefined} onClick={this.onTabClick.bind(this)}> {item} </li>
+				}, this)}
 
 				<li>
-					<button type='button' onClick={_this.onReportClick.bind(_this)} name='console'> {this.state.consoleShown ?  "Hide changes": "Show changes"} </button>
+					<button type='button' onClick={this.onReportClick.bind(this)} name='console'> {this.state.consoleShown ?  "Hide changes": "Show changes"} </button>
 				</li>
 			</ul>
 		);

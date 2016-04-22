@@ -38,15 +38,9 @@ window.setColors = (_colors) => {
 
 window.parseColors = (_colors) => {
 	let colors = {
-		text: 		_colors.text.reduce(function(p, c) { p[c] = [{}]; return p; }, new Object()),
-		background: _colors.background.reduce(function(p, c) { p[c] = [{}]; return p; }, new Object())
+		text: 		_colors.text.reduce(function(p, c) { p[c] = [{}]; return p; }, new ColorDictionary('text')),
+		background: _colors.background.reduce(function(p, c) { p[c] = [{}]; return p; }, new ColorDictionary('background'))
 	}
-
-	colors.text.__proto__ = colors.background.__proto__ = ColorDictionary.prototype;
-	colors.text[__newColorsDictKey] = {};
-	colors.background[__newColorsDictKey] = {};
-	colors.text.name = 'text';
-	colors.background.name = 'background';
 
 	Object.defineProperty(colors, 'all', {
 		get: function(){
