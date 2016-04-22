@@ -4,8 +4,9 @@ const __colorSetName = Symbol('color-set-name');
 
 export class ColorDictionary {
 
-	constructor() {
+	constructor(name) {
 		this[__newColorsDictKey] = {};
+		this.name = name;
 	}
 
 	get name(){return this[__colorSetName];}
