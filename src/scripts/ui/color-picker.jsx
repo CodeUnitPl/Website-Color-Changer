@@ -14,11 +14,14 @@ export class ColorPickerComponent extends React.Component {
 	}
 
 	handleChange(color) {
-		this.props.colors[this.state.currentColorSet].setNewColor(this.state.initialColor, '#'+color.hex);
+		const rgba = color.rgb;
+		const cssColor = !!rgba.a ? `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})` : `rgb(${rgba.r}, ${rgba.g}, ${rgba.b})`;
+
+		this.props.colors[this.state.currentColorSet].setNewColor(this.state.initialColor, cssColor);
 		notificationCenter.emit('on-color-change', {
 			colorsSet: this.state.currentColorSet,
 			initialColor: this.state.initialColor,
-			currentColor: '#' + color.hex
+			currentColor: cssColor
 		});
 	}
 
