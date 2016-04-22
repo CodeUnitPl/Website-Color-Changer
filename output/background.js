@@ -25,7 +25,7 @@ function DevtoolsCommunicationModule() {
 		switch(message.name) {
 			case 'init':
 				connections[message.tabId] = port;
-				chrome.tabs.executeScript(null, {file: 'content.js'});
+				chrome.tabs.executeScript(message.tabId, {file: 'content.js'});
 				break;
 			default:
 				contentCommunicationModule.sendMessage(message);
@@ -45,8 +45,6 @@ function ContentCommunicationModule() {
 	});
 
 	this.sendMessage = function(obj, responseCallback) {
-		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-			chrome.tabs.sendMessage(tabs[0].id, obj, responseCallback);
-		});
+		chrome.tabs.sendMessage(obj.tabId, obj, responseCallback);
 	}
 } 

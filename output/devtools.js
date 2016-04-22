@@ -24,6 +24,8 @@
 			sidebar.setPage('index.html');
 
 			sidebar.onShown.addListener( (_window) => {
+				if(this.extWindow) { return };
+
 				extWindow = _window;
 				extWindow.initComponent(sidebar, this.connectionProxy);
 				connectionProxy.postMessage({name: 'init'});

@@ -5,6 +5,8 @@ import {ColorsList, Tabs, ColorPickerComponent, Console} from './ui.js'
 import NotificationCenter from './notification-center.js'
 
 function initNotificationCenter() {
+	if (window.notificationCenter) { return };
+	
 	const notificationCenter = new NotificationCenter();
 	notificationCenter.registerEvent('on-color-change');
 	notificationCenter.registerEvent('on-color-set-change');
