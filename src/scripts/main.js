@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Colors, AllColorDictionary, ColorDictionary, __newColorsDictKey} from './utils.js'
-import {ColorsList, Tabs, ColorPickerComponent} from './ui.js'
+import {ColorsList, Tabs, ColorPickerComponent, Console} from './ui.js'
 import NotificationCenter from './notification-center.js'
 
 function initNotificationCenter() {
@@ -10,6 +10,7 @@ function initNotificationCenter() {
 	notificationCenter.registerEvent('on-color-set-change');
 	notificationCenter.registerEvent('pick-color-for');
 	notificationCenter.registerEvent('on-component-update');
+	notificationCenter.registerEvent('toggle-console');
 	window.notificationCenter = notificationCenter;
 };
 
@@ -17,6 +18,7 @@ window.load = (colors) => {
 	const tabsContainerNode =  document.getElementById('tabs-container');
 	const colosListContainerNode = document.getElementById('colors-list-container');
 	const colorPickerContainerNode = document.getElementById('color-picker-container');
+	const consoleContainerNode = document.getElementById('console-container');
 
 	const defaultColorsSet = 'all';
 	const colorSetsNames = Object.keys(colors);
@@ -24,6 +26,7 @@ window.load = (colors) => {
 	ReactDOM.render(React.createElement(ColorPickerComponent, {defaultColorsSet: defaultColorsSet, colors: colors}), colorPickerContainerNode);
 	ReactDOM.render(React.createElement(Tabs, {items: colorSetsNames, defaultItemName: defaultColorsSet}), tabsContainerNode);
 	ReactDOM.render(React.createElement(ColorsList, {colors: colors, defaultColorsSet: defaultColorsSet}), colosListContainerNode);
+	ReactDOM.render(React.createElement(Console, {colors: colors}), consoleContainerNode);
 };
 
 window.setColors = (_colors) => {
@@ -37,17 +40,18 @@ window.parseColors = (_colors) => {
 		background: _colors.background.reduce(function(p, c) { p[c] = [{}]; return p; }, new Object())
 	}
 
+	colors.text.__proto__ = colors.background.__proto__ = ColorDictionary.prototype;
+	colors.text[__newColorsDictKey] = {};
+	colors.background[__newColorsDictKey] = {};
+	colors.text.name = 'text';
+	colors.background.name = 'background';
+
 	Object.defineProperty(colors, 'all', {
 		get: function(){
 			return new AllColorDictionary(this.text, this.background);
 		},
 		enumerable: true
 	});
-
-
-	colors.text.__proto__ = colors.background.__proto__ = ColorDictionary.prototype;
-	colors.text[__newColorsDictKey] = {};
-	colors.background[__newColorsDictKey] = {};
 
 	return colors;
 }
