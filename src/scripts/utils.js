@@ -14,8 +14,8 @@ export class ColorDictionary {
 
 	get __keys() {
 		return Object.keys(this).sort(function(a,b) {
-			var _rgb1 = Colors.hexToRgb(a);
-			var _rgb2 = Colors.hexToRgb(b);
+			const _rgb1 = Colors.getRgbaComponentsFromCssString(a);
+			const _rgb2 = Colors.getRgbaComponentsFromCssString(b);
 			var hsl1 = Colors.rgbToHsl(..._rgb1);
 			var hsl2 = Colors.rgbToHsl(..._rgb2);
 			return (hsl1[0] * 0.9 + hsl1[2]*0.1)  - (hsl2[0] * 0.9 + hsl2[2]*0.1);
@@ -95,38 +95,29 @@ export class Colors {
 		return target;
 	}
 
-	static rgbaStringToHex(color) {
-		let rgba = color.match(/(\d|\.)+/g);
+	static getRgbaComponentsFromCssString(cssColor) {
+		const rgba = cssColor.match(/(\d|\.)+/g);
 		let r = parseInt(rgba[0]).toString(16).replace(/^(.)$/, '0$1');
 		let g = parseInt(rgba[1]).toString(16).replace(/^(.)$/, '0$1');
 		let b = parseInt(rgba[2]).toString(16).replace(/^(.)$/, '0$1');
 		let a = parseFloat(rgba[3]) || 1.;
+		return [r, g, b, a];
+	}
 
+	static rgbaStringToHex(color) {
+		const [r, g, b, a] = this.getRgbaComponentsFromCssString(color);
 		let rgbHex = ['#', r, g, b].join('');
-
 		return [rgbHex, a]; 
 	}
 
-	static hexToRgb(colorHex) {
-		if(colorHex[0] != '#') return false;
-		colorHex = colorHex.slice(1);
-
-		if(colorHex.length == 6) {
-			var r = parseInt(colorHex.slice(0, 2), 16);
-			var g = parseInt(colorHex.slice(2, 4), 16);
-			var b = parseInt(colorHex.slice(4, 6), 16);
-			return [r, g, b];
-		}
-	}
-
 	static rgbToHsl(r, g, b){
-	 	var max = Math.max(r, g, b), min = Math.min(r, g, b);
-	 	var h, s, l = (max + min) / 2;
+	 	let max = Math.max(r, g, b), min = Math.min(r, g, b);
+	 	let h, s, l = (max + min) / 2;
 
 	 	if(max == min){
 	 	    h = s = 0; // achromatic
 	 	}else{
-	 		var d = max - min;
+	 		let d = max - min;
 	 		s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 	 		switch(max){
 	 		 	case r: h = (g - b) / d + (g < b ? 6 : 0); break;

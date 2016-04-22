@@ -1,4 +1,5 @@
 import React from 'react'
+import {Colors} from '../utils.js'
 
 class ColorListElement extends React.Component {
 	constructor(props) {
@@ -25,7 +26,9 @@ class ColorListElement extends React.Component {
 		return (
 			<li className={this.props.isSelected ? 'selected' : undefined} onClick={this.onClick.bind(this)}>
 				<i style={{backgroundColor: this.props.color}}></i>
-				<span>{this.props.color}</span>
+				<span>
+					{this.props.format == 'RGBA' ? this.props.color : Colors.rgbaStringToHex(this.props.color)}
+				</span>
 				<span className='new-color'>
 					{
 						newColors.map(function(newColor) {
@@ -49,11 +52,13 @@ export class ColorsList extends React.Component {
 		super(props);
 		this.state = {
 			colorsSet: props.defaultColorsSet,
-			selectedColor: undefined
+			selectedColor: undefined,
+			colorFormat: 'RGBA'
 		}
 		this.onColorsSetChangeCallback = this.onColorsSetChange.bind(this);
 		this.onColorChange = this.onColorChange.bind(this);
 		this.onColorPickingStart = this.onColorPickingStart.bind(this);
+		this.onColorFormatChange = this.onColorFormatChange.bind(this);
 	}
 
 	onColorsSetChange(setName) {
@@ -68,17 +73,23 @@ export class ColorsList extends React.Component {
 		this.setState({selectedColor: color});
 	}
 
+	onColorFormatChange(colorFormat) {
+		this.setState({colorFormat: colorFormat});
+	}
+
 	componentDidMount() {
 		notificationCenter.emit('on-component-update');
 		notificationCenter.subscribeListener('on-color-set-change', this.onColorsSetChangeCallback, 'cl-on-color-set-change-listener');
 		notificationCenter.subscribeListener('on-color-change', this.onColorChange, 'cl-on-color-change-listener');
 		notificationCenter.subscribeListener('pick-color-for', this.onColorPickingStart, 'cl-on-color-pick-start-listener');
+		notificationCenter.subscribeListener('toggle-color-format', this.onColorFormatChange, 'cl-on-color-format-change-listener');
 	}
 
 	componentWillUnmount() {
 		notificationCenter.unsubscribeListener('on-color-set-change', this.onColorsSetChangeCallback);
 		notificationCenter.unsubscribeListener('on-color-change', 'cl-on-color-change-listener');
 		notificationCenter.unsubscribeListener('pick-color-for', 'cl-on-color-pick-start-listener');
+		notificationCenter.unsubscribeListener('toggle-color-format', 'cl-on-color-format-change-listener');
 	}
 
 	componentDidUpdate() {
@@ -90,11 +101,11 @@ export class ColorsList extends React.Component {
 		let selectedColor = this.state.selectedColor;
 		return (
 			<ul className="colors-list">
-				{
-					colors.__keys.map(function(color) {
-						return <ColorListElement parent={this} key={color} isSelected={selectedColor && selectedColor == color} color={color} colors={colors} />
-					}, this)
-				}
+			{
+				colors.__keys.map(function(color) {
+					return <ColorListElement parent={this} format={this.state.colorFormat} key={color} isSelected={selectedColor && selectedColor == color} color={color} colors={colors} />
+				}, this)
+			}
 			</ul>
 		);
 	}

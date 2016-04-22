@@ -13,6 +13,7 @@ function initNotificationCenter() {
 	notificationCenter.registerEvent('pick-color-for');
 	notificationCenter.registerEvent('on-component-update');
 	notificationCenter.registerEvent('toggle-console');
+	notificationCenter.registerEvent('toggle-color-format');
 	window.notificationCenter = notificationCenter;
 };
 

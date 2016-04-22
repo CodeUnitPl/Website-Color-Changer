@@ -10,7 +10,7 @@ function getColorsOfDomElement(element) {
 
 	Array.prototype.forEach.call(elements, function(element) {
 		var style			= getComputedStyle(element);
-		var textColor		= style.color
+		var textColor		= style.color;
 		var backgroundColor	= style.backgroundColor;
 
 		if(backgroundColor) {
