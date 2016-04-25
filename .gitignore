@@ -5,3 +5,6 @@ output
 !output/manifest.json
 !output/background.js
 !output/content.js
+!output/icon16.png
+!output/icon48.png
+!output/icon128.png
