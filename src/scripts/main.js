@@ -14,6 +14,8 @@ function initNotificationCenter() {
 	notificationCenter.registerEvent('on-component-update');
 	notificationCenter.registerEvent('toggle-console');
 	notificationCenter.registerEvent('toggle-color-format');
+	notificationCenter.registerEvent('on-color-hover');
+	notificationCenter.registerEvent('on-color-leave');
 	window.notificationCenter = notificationCenter;
 };
 
@@ -69,9 +71,19 @@ window.initComponent = (sidebar, connectionProxy) => {
 			colorChangeAction['action'] = 'onColorChange';
 			connectionProxy.postMessage(colorChangeObject);
 		}
+		const onColorHover = (colorHoverAction) => {
+			colorHoverAction['action'] = 'onColorHover';
+			connectionProxy.postMessage(colorHoverAction);
+		}
+		const onColorLeave = (colorLeaveAction) => {
+			colorLeaveAction['action'] = 'onColorLeave';
+			connectionProxy.postMessage(colorLeaveAction);
+		}
 
 		notificationCenter.subscribeListener('on-component-update', updateSidebarHeight, 'm-on-component-update-listener');
 		notificationCenter.subscribeListener('on-color-change', onColorChangeCallback,'m-on-component-update-listener');
+		notificationCenter.subscribeListener('on-color-hover', onColorHover,'m-on-color-hover-listener');
+		notificationCenter.subscribeListener('on-color-leave', onColorLeave,'m-on-color-leave-listener');
 		
 		window.onresize = () => { updateSidebarHeight(); }
 	})();

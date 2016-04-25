@@ -11,6 +11,20 @@ class ColorListElement extends React.Component {
 		notificationCenter.emit('pick-color-for', this.props.color);
 	}
 
+	onMouseEnter(e) {
+		notificationCenter.emit('on-color-hover', {
+			initialColor: this.props.color,
+			colorsSet: this.parent.state.colorsSet
+		});
+	}
+
+	onMouseLeave() {
+		notificationCenter.emit('on-color-leave', {
+			initialColor: this.props.color,
+			colorsSet: this.parent.state.colorsSet
+		});
+	}
+
 	onReset(e) {
 		this.props.colors.removeNewColor(this.props.color);
 		notificationCenter.emit('on-color-change', {
@@ -24,7 +38,7 @@ class ColorListElement extends React.Component {
 	render() {
 		var newColors = this.props.colors.getNewColor(this.props.color);
 		return (
-			<li className={this.props.isSelected ? 'selected' : undefined} onClick={this.onClick.bind(this)}>
+			<li className={this.props.isSelected ? 'selected' : undefined} onClick={this.onClick.bind(this)} onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
 				<i style={{backgroundColor: this.props.color}}></i>
 				<span>
 					{this.props.format == 'RGBA' ? this.props.color : Colors.rgbaStringToHex(this.props.color)}
