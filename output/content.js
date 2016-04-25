@@ -29,12 +29,12 @@
 			var style			= getComputedStyle(element);
 			var textColor		= style.color;
 			var backgroundColor	= style.backgroundColor;
-	
-			if(backgroundColor) {
+			if(backgroundColor && backgroundColor != 'rgba(0, 0, 0, 0)') {
+				console.log(backgroundColor);
 				colors.background[backgroundColor] = (colors.background[backgroundColor] || []).concat(element);
 			}
 	
-			if(textColor) {
+			if(textColor && textColor != 'rgba(0, 0, 0, 0)') {
 				colors.text[textColor] = (colors.text[textColor] || []).concat(element);
 			}
 		}, this);
