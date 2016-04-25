@@ -38,7 +38,7 @@ export class Tabs extends React.Component{
 				</ul>
 				<ul className='right-panel'>
 					<li onClick={this.onReportClick.bind(this)}> {this.state.consoleShown ?  "Hide changes": "Show changes"} </li>
-					<li onClick={this.onColorFormatChange.bind(this)}>{['RGBA', 'HEX'][this.state.colorFormatIndex]}</li>
+					<li onClick={this.onColorFormatChange.bind(this)}>{['HEX', 'RGBA'][this.state.colorFormatIndex]}</li>
 				</ul>
 			</div>
 		);
