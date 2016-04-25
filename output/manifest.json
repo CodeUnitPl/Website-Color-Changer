@@ -6,9 +6,13 @@
 		"activeTab",
 		"*://*/*"
 	],
-  	"background": {
-  		"scripts": ["background.js"]
-  	},
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"icons": { 
+		"16": "icon16.png",
+		"48": "icon48.png",
+		"128": "icon128.png" },
 	"description": "Extends the Developer Tools, adding a sidebar that displays colors used on a website and allows to manage them.",
 	"devtools_page": "devtools.html",
 	"manifest_version": 2
