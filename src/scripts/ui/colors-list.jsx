@@ -41,7 +41,7 @@ class ColorListElement extends React.Component {
 			<li className={this.props.isSelected ? 'selected' : undefined} onClick={this.onClick.bind(this)} onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
 				<i style={{backgroundColor: this.props.color}}></i>
 				<span>
-					{this.props.format == 'RGBA' ? this.props.color : Colors.rgbaStringToHex(this.props.color)}
+					{this.props.format == 'RGBA' ? this.props.color : Colors.rgbaStringToHex(this.props.color)[0]}
 				</span>
 				<span className='new-color'>
 					{

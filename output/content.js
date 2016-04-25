@@ -30,7 +30,6 @@
 			var textColor		= style.color;
 			var backgroundColor	= style.backgroundColor;
 			if(backgroundColor && backgroundColor != 'rgba(0, 0, 0, 0)') {
-				console.log(backgroundColor);
 				colors.background[backgroundColor] = (colors.background[backgroundColor] || []).concat(element);
 			}
 	
