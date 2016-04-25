@@ -9,8 +9,9 @@ div#tabs-container
 		height: 20px
 		border-bottom: 1px solid $tab-border-color
 		
-		&.right-panel
-			float: right
+		@media (min-width: 334px)
+			&.right-panel
+				float: right
 		
 		> li
 			display: table-cell
