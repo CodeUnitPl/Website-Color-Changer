@@ -1,20 +1,16 @@
 div#tabs-container
-	position: fixed
-	top: 0
-	left: 0
-	right: 0
-	z-index: 100
+	background-color: #e2e2e2
 	
 	ul
-		background-color: #E2E2E2
 		display: inline-block
 		list-style: none
-		padding: 3px
 		margin: 0
 		padding-left:8px
 		height: 20px
-		width: 100%
 		border-bottom: 1px solid $tab-border-color
+		
+		&.right-panel
+			float: right
 		
 		> li
 			display: table-cell

@@ -6,7 +6,8 @@ export class Tabs extends React.Component{
 		super(props);
 		this.state =  { 
 			selected: props.defaultItemName,
-			consoleShown: false
+			consoleShown: false,
+			colorFormatIndex: 0
 		}
 	}
 
@@ -21,17 +22,25 @@ export class Tabs extends React.Component{
 		notificationCenter.emit('toggle-console');
 	}
 
+	onColorFormatChange() {
+		var newColorFormatState = (++this.state.colorFormatIndex, this.state.colorFormatIndex %= 2);
+		this.setState({colorFormatIndex: newColorFormatState});
+		notificationCenter.emit('toggle-color-format', ['RGBA', 'HEX'][newColorFormatState])
+	}
+
 	render() {
 		return (
-			<ul>
-				{this.props.items.map(function(item, index) {
-					return <li data-name={item} key={index} className={item==this.state.selected ? 'selected' : undefined} onClick={this.onTabClick.bind(this)}> {item} </li>
-				}, this)}
-
-				<li>
-					<button type='button' onClick={this.onReportClick.bind(this)} name='console'> {this.state.consoleShown ?  "Hide changes": "Show changes"} </button>
-				</li>
-			</ul>
+			<div>
+				<ul className='left-panel'>
+					{this.props.items.map(function(item, index) {
+						return <li data-name={item} key={index} className={item==this.state.selected ? 'selected' : undefined} onClick={this.onTabClick.bind(this)}> {item} </li>
+					}, this)}
+				</ul>
+				<ul className='right-panel'>
+					<li onClick={this.onReportClick.bind(this)}> {this.state.consoleShown ?  "Hide changes": "Show changes"} </li>
+					<li onClick={this.onColorFormatChange.bind(this)}>{['RGBA', 'HEX'][this.state.colorFormatIndex]}</li>
+				</ul>
+			</div>
 		);
 	}
 }
