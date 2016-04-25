@@ -1,6 +1,8 @@
 {
 	"name": "Website Color Changer",
 	"version": "1.0",
+	"author": "CodeUnit",
+	"homepage_url": "https://github.com/CodeUnitPl/Website-Color-Changer",
 	"permissions": [
 		"tabs",
 		"activeTab",
