@@ -1,7 +1,9 @@
 # Website Color Changer ![Website-Color-Changer logo](https://github.com/CodeUnitPl/Website-Color-Changer/blob/master/output/icon128.png)
-Chrome browser developer tools extension adding a sidebar for colors manipulation.
+Chrome & Opera browsers developer tools extension adding a sidebar for colors manipulation.
 
-Available in [Chrome Web Store](https://chrome.google.com/webstore/detail/website-color-changer/oenehcifpefblopdehjemeheenoamaed)
+Available in
+
+[Chrome Web Store](https://chrome.google.com/webstore/detail/website-color-changer/oenehcifpefblopdehjemeheenoamaed)
 
 # Features
 * List text and background colors available on inspected website
