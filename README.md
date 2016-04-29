@@ -2,8 +2,8 @@
 Chrome & Opera browsers developer tools extension adding a sidebar for colors manipulation.
 
 Available in
-
-[Chrome Web Store](https://chrome.google.com/webstore/detail/website-color-changer/oenehcifpefblopdehjemeheenoamaed)
+* [Chrome Web Store](https://chrome.google.com/webstore/detail/website-color-changer/oenehcifpefblopdehjemeheenoamaed)
+* [Opera add-ons](https://addons.opera.com/en/extensions/details/website-color-changer/)
 
 # Features
 * List text and background colors available on inspected website
